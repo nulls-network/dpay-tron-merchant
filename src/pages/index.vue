@@ -3,6 +3,7 @@ import { Dialog } from 'vant'
 import ImageSrc from '@/assets/images/iphone.png'
 import { generateOrder } from '@/utils/index'
 import { SubmitOrder } from '@/logic/placeOrder';
+import { ApiHref } from '@/const/index'
 const show = ref(false)
 const VanDialog = Dialog.Component
 const amount = ref('1')
@@ -17,7 +18,7 @@ const onClose = async () => {
   const orderInfo = await generateOrder(amount.value)
   console.log(orderInfo)
   const result = await SubmitOrder(orderInfo)
-  window.open(`http://192.168.10.12:7001/index/${result.data.id}`)
+  window.open(`${ApiHref}/index/${result.data.id}`)
   return false
 }
 const doEdit = () => {

@@ -1,4 +1,4 @@
-import TronWeb from 'tronweb/dist/TronWeb.js'
+// import TronWeb from 'tronweb/dist/TronWeb.js'
 import { ethers, utils } from 'ethers'
 
 export function getImg(name) {
@@ -7,7 +7,11 @@ export function getImg(name) {
   return modules[path].default
 }
 
-function getTronWeb() {
+async function getTronWeb() {
+  if (window) {
+    var TronWeb = (await import('tronweb/dist/TronWeb.js')).default
+    console.log(TronWeb)
+  }
   // const rpc = 'https://api.trongrid.io';//production
   const rpc = 'https://nile.trongrid.io'
   const HttpProvider = TronWeb.providers.HttpProvider
@@ -21,14 +25,14 @@ function getTronWeb() {
 }
 
 async function getTokenDecimal(tokenAdderss) {
-  const tronWeb = getTronWeb()
+  const tronWeb =await getTronWeb()
   const instance = await tronWeb.contract().at(tokenAdderss)
   return await instance.decimals().call()
 }
 
 export async function generateOrder(originAmount) {
   try {
-    const tronWeb = getTronWeb()
+    const tronWeb =await getTronWeb()
     const USDT = 'TXLAQ63Xg1NAzckPwKHvzw7CSEmLMEqcdj'
     const orderNo = (new Date().getTime()).toString()
     const token = USDT

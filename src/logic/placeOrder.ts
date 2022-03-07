@@ -1,7 +1,7 @@
+import { ApiHref } from '@/const'
 import axios from 'axios'
-const baseURL = 'http://localhost:7001'
 const axiosIns = axios.create({
-    baseURL
+    baseURL:ApiHref
 })
 
 
