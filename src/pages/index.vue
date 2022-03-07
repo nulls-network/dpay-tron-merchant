@@ -17,7 +17,7 @@ const onClose = async () => {
   const orderInfo = await generateOrder(amount.value)
   console.log(orderInfo)
   const result = await SubmitOrder(orderInfo)
-  window.open(`http://192.168.10.11:7001/index/${result.data.id}`)
+  window.open(`http://192.168.10.12:7001/index/${result.data.id}`)
   return false
 }
 const doEdit = () => {
