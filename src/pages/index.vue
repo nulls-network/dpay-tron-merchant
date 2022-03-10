@@ -10,7 +10,7 @@ const VanDialog = Dialog.Component
 const amount = ref('1')
 const isEdit = ref(false)
 const inputEl = ref()
-const privateKey = ref()
+const privateKey = ref('f78494eb224f875d7e352a2b017304e11e6a3ce94af57b373ae82a73b3496cdd')
 
 nextTick(() => {
   setTimeout(() => {

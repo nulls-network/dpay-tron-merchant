@@ -1,6 +1,6 @@
-import { ethers, utils } from 'ethers'
+import { ethers } from 'ethers'
 
-const { concat, keccak256, toUtf8Bytes } = utils
+const { concat, keccak256, toUtf8Bytes, SigningKey, joinSignature } = ethers.utils
 
 async function recover(messageDigest, signature) {
     try {
@@ -25,12 +25,17 @@ function toBytes(...params) {
 
 const privateKey = 'f78494eb224f875d7e352a2b017304e11e6a3ce94af57b373ae82a73b3496cdd'
 
-export async function SignOrder(orderInfo = [],privateKey) {
+export async function SignOrder(orderInfo = [], privateKey) {
 
-    const bytesData = toBytes(orderInfo)
+    try {
+        const bytesData = toBytes(orderInfo)
 
-    const signer = new ethers.Wallet(privateKey)
+        const signer = new SigningKey('0x'+privateKey)
 
-    return signer.signMessage(bytesData)
+        const signature = signer.signDigest(bytesData)
 
+        return joinSignature(signature)
+    } catch (error) {
+        console.log(error)
+    }
 }
