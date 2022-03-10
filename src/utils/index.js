@@ -10,7 +10,6 @@ export function getImg(name) {
 async function getTronWeb() {
   if (window) {
     var TronWeb = (await import('tronweb/dist/TronWeb.js')).default
-    console.log(TronWeb)
   }
   // const rpc = 'https://api.trongrid.io';//production
   const rpc = 'https://nile.trongrid.io'
@@ -25,14 +24,37 @@ async function getTronWeb() {
 }
 
 async function getTokenDecimal(tokenAdderss) {
-  const tronWeb =await getTronWeb()
+  const tronWeb = await getTronWeb()
   const instance = await tronWeb.contract().at(tokenAdderss)
   return await instance.decimals().call()
 }
 
+export async function parseAmount(originAmount, token) {
+  let amount;
+  const decimals = await getTokenDecimal(token)
+  console.log('decimals: ', decimals)
+
+
+  let _amount = (+((+originAmount).toFixed(decimals))).toString();
+  if (Number.isNaN(_amount)) {
+    throw new Error('invaild amount')
+  }
+  let _decimals = decimals
+  const dLen = _amount.split('.')[1]?.length || 0
+  if (dLen > 0) {
+    _decimals -= dLen
+    _amount = _amount.replace('.', '')
+  }
+
+
+  amount = utils.parseUnits(_amount, _decimals).toString()
+  console.log('parsed amount: ', originAmount, amount)
+  return amount
+}
+
 export async function generateOrder(originAmount) {
   try {
-    const tronWeb =await getTronWeb()
+    const tronWeb = await getTronWeb()
     const USDT = 'TXLAQ63Xg1NAzckPwKHvzw7CSEmLMEqcdj'
     const orderNo = (new Date().getTime()).toString()
     const token = USDT
