@@ -4,7 +4,7 @@ import ImageSrc from '@/assets/images/iphone.png'
 import { generateOrder, parseAmount } from '@/utils/index'
 import { SubmitOrder } from '@/logic/placeOrder';
 import { ApiHref,ChecksSiteHref } from '@/const/index'
-import { SignOrder } from '@/utils/sign.js'
+import { SignOrder,Recover } from '@/utils/sign.js'
 const show = ref(false)
 const VanDialog = Dialog.Component
 const amount = ref('1')
@@ -29,6 +29,8 @@ const onClose = async () => {
   }
   const signature = await SignOrder(Object.values(orderInfo), privateKey.value)
   console.log(signature)
+
+
   // const orderInfo = await generateOrder(amount.value)
   // console.log(orderInfo)
   const { data } = await SubmitOrder(Object.assign({ signature }, orderInfo))
