@@ -98,16 +98,17 @@ export default defineConfig({
   ],
 
   server: {
-    host:'0.0.0.0',
+    host: '0.0.0.0',
     fs: {
       strict: true,
     },
     proxy: {
-      "/api": {
+      '/api': {
         // target: "http://192.168.10.16:7001",
-        target: "http://192.168.10.3:7002",
+        // target: 'http://192.168.10.3:7002',
+        target: 'https://api.dpay.systems',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: path => path.replace(/^\/api/, ''),
       },
     },
   },

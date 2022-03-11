@@ -8,9 +8,9 @@ export function getImg(name) {
 }
 
 async function getTronWeb() {
-  if (window) {
+  if (window)
     var TronWeb = (await import('tronweb/dist/TronWeb.js')).default
-  }
+
   // const rpc = 'https://api.trongrid.io';//production
   const rpc = 'https://nile.trongrid.io'
   const HttpProvider = TronWeb.providers.HttpProvider
@@ -30,15 +30,13 @@ async function getTokenDecimal(tokenAdderss) {
 }
 
 export async function parseAmount(originAmount, token) {
-  let amount;
   const decimals = await getTokenDecimal(token)
   console.log('decimals: ', decimals)
 
-
-  let _amount = (+((+originAmount).toFixed(decimals))).toString();
-  if (Number.isNaN(_amount)) {
+  let _amount = (+((+originAmount).toFixed(decimals))).toString()
+  if (Number.isNaN(_amount))
     throw new Error('invaild amount')
-  }
+
   let _decimals = decimals
   const dLen = _amount.split('.')[1]?.length || 0
   if (dLen > 0) {
@@ -46,8 +44,7 @@ export async function parseAmount(originAmount, token) {
     _amount = _amount.replace('.', '')
   }
 
-
-  amount = utils.parseUnits(_amount, _decimals).toString()
+  const amount = utils.parseUnits(_amount, _decimals).toString()
   console.log('parsed amount: ', originAmount, amount)
   return amount
 }
@@ -61,15 +58,13 @@ export async function generateOrder(originAmount) {
     let amount = ''
     const to = 'TD16YPGYRRzg8SGxehi1Xb5DSuAKGjT22r'
 
-
     const decimals = await getTokenDecimal(token)
     console.log('decimals: ', decimals)
 
-
-    let _amount = (+((+originAmount).toFixed(decimals))).toString();
-    if (Number.isNaN(_amount)) {
+    let _amount = (+((+originAmount).toFixed(decimals))).toString()
+    if (Number.isNaN(_amount))
       throw new Error('invaild amount')
-    }
+
     let _decimals = decimals
     const dLen = _amount.split('.')[1]?.length || 0
     if (dLen > 0) {
@@ -79,10 +74,8 @@ export async function generateOrder(originAmount) {
     }
     console.log(_amount.toString())
 
-
     amount = utils.parseUnits(_amount, _decimals).toString()
     console.log('parsed amount: ', amount)
-
 
     const abiCoder = new ethers.utils.AbiCoder()
     const bytesData = abiCoder.encode(
@@ -93,7 +86,8 @@ export async function generateOrder(originAmount) {
     // merchant private key
     const sign = await tronWeb.trx.sign(strHash, 'f78494eb224f875d7e352a2b017304e11e6a3ce94af57b373ae82a73b3496cdd')
     return { orderNo, token, amount, to, sign }
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error)
   }
 }
