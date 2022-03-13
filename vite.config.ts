@@ -106,7 +106,7 @@ export default defineConfig({
       '/api': {
         // target: "http://192.168.10.16:7001",
         // target: 'http://192.168.10.3:7002',
-        target: 'https://api.dpay.systems',
+        target: 'https://api-tron-v1.dpay.systems',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, ''),
       },

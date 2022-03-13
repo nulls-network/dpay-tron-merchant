@@ -5,7 +5,7 @@ const {
 module.exports = (req, res) => {
   let target = ''
   if (req.url.startsWith('/api'))
-    target = 'http://192.168.10.16:7001'
+    target = 'http://api-tron-v1.dpay.systems'
 
   createProxyMiddleware({
     target,
