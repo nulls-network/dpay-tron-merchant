@@ -5,6 +5,10 @@
 declare module 'vue' {
   export interface GlobalComponents {
     CarbonEdit: typeof import('~icons/carbon/edit')['default']
+    ElButton: typeof import('element-plus/lib')['ElButton']
+    ElForm: typeof import('element-plus/lib')['ElForm']
+    ElFormItem: typeof import('element-plus/lib')['ElFormItem']
+    ElInput: typeof import('element-plus/lib')['ElInput']
     VanImage: typeof import('vant/lib')['Image']
   }
 }

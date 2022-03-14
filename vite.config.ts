@@ -58,7 +58,7 @@ export default defineConfig({
         // auto import icons
         // https://github.com/antfu/unplugin-icons
         IconsResolver({
-          prefix: false,
+          prefix: "icon",
           enabledCollections: ['carbon', 'mdi'],
         }),
         (name: string) => {
@@ -67,6 +67,14 @@ export default defineConfig({
             return {
               importName: partialName,
               path: 'vant/lib',
+            }
+          }
+        },
+        (name: string) => {
+          if (name.startsWith('El')) {
+            return {
+              importName: name,
+              path: 'element-plus/lib',
             }
           }
         },
@@ -131,8 +139,6 @@ export default defineConfig({
       'vue-router',
       '@vueuse/core',
       '@vueuse/head',
-    ],
-    exclude: [
       'vue-demi',
     ],
   },

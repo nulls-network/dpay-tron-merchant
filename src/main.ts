@@ -7,7 +7,9 @@ import App from './App.vue'
 // windicss layers
 import 'virtual:windi-base.css'
 import 'virtual:windi-components.css'
-import 'vant/lib/index.css'
+
+
+import 'element-plus/dist/index.css'
 
 // your custom styles here
 import './styles/main.css'
