@@ -33,6 +33,9 @@
           <el-button type="primary" @click="generateSign">生成</el-button>
         </div>
       </el-form-item>
+      <el-form-item label="通知URL" prop="notify">
+        <el-input v-model="ruleForm.notify"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm(ruleFormRef)">创建订单</el-button>
         <el-button @click="resetForm(ruleFormRef)">重置</el-button>
@@ -58,6 +61,7 @@ const ruleForm = reactive({
   pay_amount: '',
   signature: '',
   privateKey: '',
+  notify: '',
 })
 
 const checkAmount = (rule: any, value: any, callback: any) => {
@@ -127,9 +131,14 @@ const resetForm = (formEl) => {
 const generateSign = async () => {
   console.log(ruleFormRef.value.model)
 
-  let orderInfo = Object.assign({}, ruleFormRef.value.model)
-  delete orderInfo.privateKey
-  delete orderInfo.signature
+  let orderInfo = {
+    out_order_no: ruleFormRef.value.model.out_order_no,
+    pay_chain: 'tron',
+    pay_token: ruleFormRef.value.model.pay_token,
+    pay_amount: ruleFormRef.value.model.pay_amount,
+  }
+
+
   const privateKey = ruleFormRef.value.model.privateKey
   const signature = await SignOrder(Object.values(orderInfo), privateKey)
   console.log(signature)
