@@ -27,9 +27,15 @@ function toBytes(...params) {
 
 // const privateKey = 'f78494eb224f875d7e352a2b017304e11e6a3ce94af57b373ae82a73b3496cdd'
 
-export async function SignOrder(orderInfo = [], privateKey) {
+export async function SignOrder(orderInfo = {}, privateKey) {
   try {
-    const bytesData = toBytes(orderInfo)
+    const bytesData = toBytes(
+      orderInfo.out_order_no,
+      orderInfo.pay_chain,
+      orderInfo.pay_token,
+      orderInfo.pay_amount,
+      orderInfo.notify,
+    )
 
     console.log(bytesData)
 

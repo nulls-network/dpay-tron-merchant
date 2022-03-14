@@ -47,7 +47,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { USDT, ChecksSiteHref } from '@/const/index'
-import { SignOrder } from '@/utils/sign.js'
+import { SignOrder, Recover } from '@/utils/sign.js'
 import { SubmitOrder } from '@/logic/placeOrder'
 
 
@@ -102,7 +102,7 @@ const rules = reactive({
 
 const submitForm = async (formEl) => {
   if (!formEl) return
-  if(loading.value) return
+  if (loading.value) return
   await formEl.validate(async (valid, fields) => {
     if (valid) {
       try {
@@ -149,10 +149,15 @@ const generateSign = async () => {
 
 
   const privateKey = ruleFormRef.value.model.privateKey
-  const signature = await SignOrder(Object.values(orderInfo), privateKey)
+  const signature = await SignOrder(orderInfo, privateKey)
   console.log(signature)
   ruleForm.signature = signature
 }
+
+// onMounted(async () => {
+//   const r = await Recover('0xa2597aa1dbb7a70cad7a11592e6bedfd2d79efec0de36f7a7b42872c7a8d0387','0x486ff75bd6a6adc08603489634c3ce9c0000dcb1ce2df54772721c321e9d9402301b0085ec0fe48681211d5c88f11a88e527aa8569a6620bd7292bfdebde1fb51c')
+//   console.log(r)
+// })
 
 </script>
 
