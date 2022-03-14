@@ -51,7 +51,7 @@ import { SignOrder } from '@/utils/sign.js'
 import { SubmitOrder } from '@/logic/placeOrder'
 
 
-
+const loading = ref(false)
 const formSize = ref('default')
 const ruleFormRef = ref()
 const ruleForm = reactive({
@@ -102,21 +102,29 @@ const rules = reactive({
 
 const submitForm = async (formEl) => {
   if (!formEl) return
+  if(loading.value) return
   await formEl.validate(async (valid, fields) => {
     if (valid) {
-      let orderInfo = Object.assign({}, ruleFormRef.value.model)
-      delete orderInfo.privateKey
+      try {
+        loading.value = true
+        let orderInfo = Object.assign({}, ruleFormRef.value.model)
+        delete orderInfo.privateKey
 
-      const { data } = await SubmitOrder(orderInfo)
-      const params = new URLSearchParams()
-      params.append('pay_token', data.pay_token)
-      params.append('deadline', data.deadline)
-      params.append('pay_amount', data.pay_amount)
-      params.append('rec_address', data.rec_address)
-      params.append('rec_chain', data.rec_chain)
-      params.append('uuid', data.uuid)
-      params.append('out_order_no', data.out_order_no)
-      window.open(`${ChecksSiteHref}/?${params.toString()}`, '_blank')
+        const { data } = await SubmitOrder(orderInfo)
+        const params = new URLSearchParams()
+        params.append('pay_token', data.pay_token)
+        params.append('deadline', data.deadline)
+        params.append('pay_amount', data.pay_amount)
+        params.append('rec_address', data.rec_address)
+        params.append('rec_chain', data.rec_chain)
+        params.append('uuid', data.uuid)
+        params.append('out_order_no', data.out_order_no)
+        loading.value = false
+        window.open(`${ChecksSiteHref}/?${params.toString()}`, '_blank')
+      } catch (error) {
+        loading.value = false
+      }
+
     } else {
       console.log('error submit!', fields)
     }
