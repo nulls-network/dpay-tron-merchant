@@ -144,6 +144,7 @@ const generateSign = async () => {
     pay_chain: 'tron',
     pay_token: ruleFormRef.value.model.pay_token,
     pay_amount: ruleFormRef.value.model.pay_amount,
+    notify: ruleFormRef.value.model.notify,
   }
 
 
