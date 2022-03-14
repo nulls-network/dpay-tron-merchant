@@ -17,7 +17,7 @@ nextTick(() => {
     show.value = true
   }, 2000)
 })
-const onClose = async() => {
+const onClose = async () => {
   if (!privateKey.value)
     return
 
@@ -62,33 +62,24 @@ const doEdit = () => {
       <div class="flex p-2 md:p-4">
         <van-image width="150" :src="ImageSrc" />
         <div class="ml-3 flex flex-col">
-          <p class="mb-3">
-            Apple iPhone 13 Mini, 128GB, Pink - Unlocked (Renewed)
-          </p>
-          <p v-show="!isEdit" class="flex items-center" @click="doEdit">
-            Price: {{ amount }} USDT
-            <carbon-edit class="text-sm ml-1"></carbon-edit>
-          </p>
-          <p v-show="isEdit" class="flex items-center">
-            Price:
-            <input
-              ref="inputEl"
-              v-model="amount"
-              class="w-50px px-2"
-              type="text"
-              @blur="isEdit = false"
-            /> USDT
-          </p>
+          <p class="mb-3">Apple iPhone 13 Mini, 128GB, Pink - Unlocked (Renewed)</p>
         </div>
+      </div>
+      <div class="px-2">
+        <p class="flex items-center">
+          <span class="w-100px flex-shrink-0"> Price: </span>
+          <input
+            ref="inputEl"
+            v-model="amount"
+            class="w-full px-2 border rounded-md"
+            type="text"
+            @blur="isEdit = false"
+          /> USDT
+        </p>
       </div>
       <p class="flex items-center justify-between px-2 mt-4 mb-2">
         <span class="w-100px flex-shrink-0">Private key:</span>
-        <input
-          v-model="privateKey"
-          class="w-full px-2 border"
-          type="text"
-          @blur="isEdit = false"
-        />
+        <input v-model="privateKey" class="w-full px-2 border rounded-md" type="text" @blur="isEdit = false" />
       </p>
     </VanDialog>
   </div>

@@ -12,7 +12,7 @@ module.exports = (req, res) => {
     target,
     changeOrigin: true,
     pathRewrite: {
-      '^/api': '/api',
+      '^/api': '',
     },
   })(req, res)
 }
