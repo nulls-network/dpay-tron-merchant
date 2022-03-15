@@ -9,10 +9,10 @@
       class="demo-ruleForm"
       :size="formSize"
     >
-      <el-form-item label="订单号" prop="orderNumber">
+      <el-form-item label="订单号" prop="out_order_no">
         <div class="flex">
           <el-input v-model="ruleForm.out_order_no"></el-input>
-          <el-button type="primary" @click="ruleForm.out_order_no = Date.now() + ''">生成</el-button>
+          <el-button type="primary" @click="generateOrderNumber">生成</el-button>
         </div>
       </el-form-item>
       <el-form-item label="交易金额（U）" prop="pay_amount">
@@ -27,14 +27,14 @@
       <el-form-item label="私钥" prop="privateKey">
         <el-input v-model="ruleForm.privateKey"></el-input>
       </el-form-item>
+      <el-form-item label="通知URL" prop="notify">
+        <el-input v-model="ruleForm.notify" placeholder="localhost"></el-input>
+      </el-form-item>
       <el-form-item label="签名信息" prop="signature">
         <div class="flex">
           <el-input v-model="ruleForm.signature"></el-input>
           <el-button type="primary" @click="generateSign">生成</el-button>
         </div>
-      </el-form-item>
-      <el-form-item label="通知URL" prop="notify">
-        <el-input v-model="ruleForm.notify"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm(ruleFormRef)">创建订单</el-button>
@@ -98,6 +98,9 @@ const rules = reactive({
   privateKey: [
     { required: true, message: 'Please input privateKey', trigger: 'blur' },
   ],
+  notify: [
+    { required: true, message: 'Please input notify url', trigger: 'blur' },
+  ],
 })
 
 const submitForm = async (formEl) => {
@@ -136,22 +139,49 @@ const resetForm = (formEl) => {
   formEl.resetFields()
 }
 
-const generateSign = async () => {
-  console.log(ruleFormRef.value.model)
+const checkSignFields = function () {
+  return new Promise(resolve => {
+    let res: Array<any> = []
+    let t = 0
+    ruleFormRef.value.validateField(['out_order_no', 'pay_chain', 'pay_token', 'pay_amount', 'notify', 'privateKey'], (vaild: string) => {
+      t++
+      res.push(vaild)
+      if (t === 6) {
+        resolve(res.every(v => v === ''))
+      }
+    })
+  })
+}
 
-  let orderInfo = {
-    out_order_no: ruleFormRef.value.model.out_order_no,
-    pay_chain: 'tron',
-    pay_token: ruleFormRef.value.model.pay_token,
-    pay_amount: ruleFormRef.value.model.pay_amount,
-    notify: ruleFormRef.value.model.notify,
+const generateOrderNumber = () => {
+  ruleForm.out_order_no = Date.now() + ''
+  ruleFormRef.value.validateField(['out_order_no'])
+}
+
+const generateSign = async () => {
+  // console.log(ruleFormRef.value.model)
+
+  let checks = await checkSignFields()
+  console.log(checks)
+
+  if (checks) {
+    let orderInfo = {
+      out_order_no: ruleFormRef.value.model.out_order_no,
+      pay_chain: 'tron',
+      pay_token: ruleFormRef.value.model.pay_token,
+      pay_amount: ruleFormRef.value.model.pay_amount,
+      notify: ruleFormRef.value.model.notify,
+    }
+
+
+    const privateKey = ruleFormRef.value.model.privateKey
+    const signature = await SignOrder(orderInfo, privateKey)
+    console.log(signature)
+    ruleForm.signature = signature
+
+    ruleFormRef.value.validateField(['signature'])
   }
 
-
-  const privateKey = ruleFormRef.value.model.privateKey
-  const signature = await SignOrder(orderInfo, privateKey)
-  console.log(signature)
-  ruleForm.signature = signature
 }
 
 // onMounted(async () => {
