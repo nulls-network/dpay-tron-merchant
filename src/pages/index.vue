@@ -78,6 +78,7 @@ const checkAmount = (rule: any, value: any, callback: any) => {
       callback(new Error('Please input number type value'))
     }
     else {
+      ruleForm.pay_amount = (+ruleForm.pay_amount).toString()
       callback()
     }
   }, 100)
