@@ -178,7 +178,6 @@ const generateSign = async () => {
       pay_token: ruleFormRef.value.model.pay_token,
       pay_amount: ruleFormRef.value.model.pay_amount,
       notify: ruleFormRef.value.model.notify,
-      pub_key: ruleFormRef.value.model.pub_key,
     }
 
 
