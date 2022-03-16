@@ -52,6 +52,7 @@ import { reactive, ref } from 'vue'
 import { USDT, ChecksSiteHref } from '@/const/index'
 import { SignOrder, Recover } from '@/utils/sign.js'
 import { SubmitOrder } from '@/logic/placeOrder'
+import { ElMessage } from 'element-plus';
 
 
 const loading = ref(false)
@@ -120,17 +121,23 @@ const submitForm = async (formEl) => {
         let orderInfo = Object.assign({}, ruleFormRef.value.model)
         delete orderInfo.privateKey
 
-        const { data } = await SubmitOrder(orderInfo)
-        const params = new URLSearchParams()
-        params.append('pay_token', data.pay_token)
-        params.append('deadline', data.deadline)
-        params.append('pay_amount', data.pay_amount)
-        params.append('rec_address', data.rec_address)
-        params.append('rec_chain', data.rec_chain)
-        params.append('uuid', data.uuid)
-        params.append('out_order_no', data.out_order_no)
+        const { code, data, message } = await SubmitOrder(orderInfo)
         loading.value = false
-        window.open(`${ChecksSiteHref}/?${params.toString()}`, '_blank')
+        if (code == 0) {
+          const params = new URLSearchParams()
+          params.append('pay_token', data.pay_token)
+          params.append('deadline', data.deadline)
+          params.append('pay_amount', data.pay_amount)
+          params.append('rec_address', data.rec_address)
+          params.append('rec_chain', data.rec_chain)
+          params.append('uuid', data.uuid)
+          params.append('out_order_no', data.out_order_no)
+          window.open(`${ChecksSiteHref}/?${params.toString()}`, '_blank')
+        }
+        else {
+          ElMessage({ message,type:'error' })
+        }
+
       } catch (error) {
         loading.value = false
       }
