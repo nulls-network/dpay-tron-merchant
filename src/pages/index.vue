@@ -27,6 +27,9 @@
       <el-form-item label="私钥" prop="privateKey">
         <el-input v-model="ruleForm.privateKey"></el-input>
       </el-form-item>
+      <el-form-item label="公钥(Hex)" prop="pub_key">
+        <el-input v-model="ruleForm.pub_key"></el-input>
+      </el-form-item>
       <el-form-item label="通知URL" prop="notify">
         <el-input v-model="ruleForm.notify" placeholder="localhost"></el-input>
       </el-form-item>
@@ -62,6 +65,7 @@ const ruleForm = reactive({
   signature: '',
   privateKey: '',
   notify: '',
+  pub_key: '',
 })
 
 const checkAmount = (rule: any, value: any, callback: any) => {
@@ -97,6 +101,9 @@ const rules = reactive({
   ],
   privateKey: [
     { required: true, message: 'Please input privateKey', trigger: 'blur' },
+  ],
+  pub_key: [
+    { required: true, message: 'Please input publicKey', trigger: 'blur' },
   ],
   notify: [
     { required: true, message: 'Please input notify url', trigger: 'blur' },
