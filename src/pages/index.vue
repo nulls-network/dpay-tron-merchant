@@ -170,7 +170,7 @@ const checkSignFields = function () {
 }
 
 const generateOrderNumber = () => {
-  ruleForm.out_order_no = moment(Date.now()).format();
+  ruleForm.out_order_no = moment(Date.now()).format('YYYYMMDDHHmmss');
   ruleFormRef.value.validateField(['out_order_no'])
 }
 
