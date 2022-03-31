@@ -53,6 +53,7 @@ import { USDT, ChecksSiteHref } from '@/const/index'
 import { SignOrder, Recover } from '@/utils/sign.js'
 import { SubmitOrder } from '@/logic/placeOrder'
 import { ElMessage } from 'element-plus';
+import moment from 'moment'
 
 
 const loading = ref(false)
@@ -169,7 +170,7 @@ const checkSignFields = function () {
 }
 
 const generateOrderNumber = () => {
-  ruleForm.out_order_no = Date.now() + ''
+  ruleForm.out_order_no = moment(Date.now()).format();
   ruleFormRef.value.validateField(['out_order_no'])
 }
 

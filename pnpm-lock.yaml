@@ -22,6 +22,7 @@ specifiers:
   https-localhost: ^4.7.0
   markdown-it-link-attributes: ^3.0.0
   markdown-it-prism: ^2.2.1
+  moment: ^2.29.1
   nprogress: ^0.2.0
   pinia: ^2.0.0-rc.14
   pnpm: ^6.18.0
@@ -56,6 +57,7 @@ dependencies:
   element-plus: 1.2.0-beta.6_vue@3.2.31
   ethers: 5.6.0
   http-proxy-middleware: 2.0.3
+  moment: 2.29.1
   nprogress: 0.2.0
   pinia: 2.0.11_typescript@4.6.2+vue@3.2.31
   prism-theme-vars: 0.2.2
@@ -5189,6 +5191,10 @@ packages:
     dependencies:
       import-meta-resolve: 1.1.1
     dev: true
+
+  /moment/2.29.1:
+    resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==}
+    dev: false
 
   /mrmime/1.0.0:
     resolution: {integrity: sha512-a70zx7zFfVO7XpnQ2IX1Myh9yY4UYvfld/dikWRnsXxbyvMcfz+u6UfgNAtH+k2QqtJuzVpv6eLTx1G2+WKZbQ==}
