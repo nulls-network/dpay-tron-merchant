@@ -1,6 +1,6 @@
 <template>
   <div class="container px-4">
-    <h3 class="text-center mb-10 text-lg font-bold">Dpay 商户订单模拟器</h3>
+    <h3 class="text-center mb-10 text-lg font-bold">Cpay 商户订单模拟器(生产环境)</h3>
     <el-form
       ref="ruleFormRef"
       :model="ruleForm"
