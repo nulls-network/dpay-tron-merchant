@@ -8,6 +8,20 @@ useHead({
     { name: 'description', content: 'CPay Merchant Demo' },
   ],
 })
+const { locale } = useI18n()
+
+
+onMounted(() => {
+  const lang = window.navigator.language.slice(0, 2)
+  if (lang == 'zh') {
+    locale.value = 'zh-CN'
+  }
+  else{
+    locale.value = 'en'
+  }
+})
+
+
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <template>
   <div class="container px-4">
-    <h3 class="text-center mb-10 text-lg font-bold">Cpay 商户订单模拟器(生产环境)</h3>
+    <h3 class="text-center mb-10 text-lg font-bold">{{$t('orderTool.OrderToolTitle')}}</h3>
     <el-form
       ref="ruleFormRef"
       :model="ruleForm"
@@ -9,39 +9,39 @@
       class="demo-ruleForm"
       :size="formSize"
     >
-      <el-form-item label="订单号" prop="out_order_no">
+      <el-form-item :label="$t('orderTool.orderNumber')" prop="out_order_no">
         <div class="flex">
           <el-input v-model="ruleForm.out_order_no"></el-input>
-          <el-button type="primary" @click="generateOrderNumber">生成</el-button>
+          <el-button type="primary" @click="generateOrderNumber">{{$t('orderTool.generate')}}</el-button>
         </div>
       </el-form-item>
-      <el-form-item label="交易金额（U）" prop="pay_amount">
+      <el-form-item :label="$t('orderTool.transactionAmount')" prop="pay_amount">
         <el-input v-model="ruleForm.pay_amount"></el-input>
       </el-form-item>
-      <el-form-item label="收款链名" prop="pay_chain">
+      <el-form-item :label="$t('orderTool.chainName')" prop="pay_chain">
         <el-input v-model="ruleForm.pay_chain"></el-input>
       </el-form-item>
-      <el-form-item label="收款Token（TRC20，默认USDT）" prop="pay_token">
+      <el-form-item :label="$t('orderTool.receiveToken')" prop="pay_token">
         <el-input v-model="ruleForm.pay_token"></el-input>
       </el-form-item>
-      <el-form-item label="私钥" prop="privateKey">
+      <el-form-item :label="$t('orderTool.privateKey')" prop="privateKey">
         <el-input v-model="ruleForm.privateKey"></el-input>
       </el-form-item>
-      <el-form-item label="公钥(Hex)" prop="pub_key">
+      <el-form-item :label="$t('orderTool.publicKey')" prop="pub_key">
         <el-input v-model="ruleForm.pub_key"></el-input>
       </el-form-item>
-      <el-form-item label="通知URL" prop="notify">
+      <el-form-item :label="$t('orderTool.notifyUrl')" prop="notify">
         <el-input v-model="ruleForm.notify" placeholder="localhost"></el-input>
       </el-form-item>
-      <el-form-item label="签名信息" prop="signature">
+      <el-form-item :label="$t('orderTool.signMessage')" prop="signature">
         <div class="flex">
           <el-input v-model="ruleForm.signature"></el-input>
-          <el-button type="primary" @click="generateSign">生成</el-button>
+          <el-button type="primary" @click="generateSign">{{$t('orderTool.generate')}}</el-button>
         </div>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm(ruleFormRef)">创建订单</el-button>
-        <el-button @click="resetForm(ruleFormRef)">重置</el-button>
+        <el-button type="primary" @click="submitForm(ruleFormRef)">{{$t('orderTool.createorder')}}</el-button>
+        <el-button @click="resetForm(ruleFormRef)">{{$t('orderTool.reset')}}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -55,7 +55,7 @@ import { SubmitOrder } from '@/logic/placeOrder'
 import { ElMessage } from 'element-plus';
 import moment from 'moment'
 
-
+const $t = useI18n().t;
 const loading = ref(false)
 const formSize = ref('default')
 const ruleFormRef = ref()
@@ -72,11 +72,11 @@ const ruleForm = reactive({
 
 const checkAmount = (rule: any, value: any, callback: any) => {
   if (!value) {
-    return callback(new Error('Please input the amount'))
+    return callback(new Error($t('orderTool.tip_inputAmount')))
   }
   setTimeout(() => {
     if (Number.isNaN(+value)) {
-      callback(new Error('Please input number type value'))
+      callback(new Error($t('orderTool.tip_inputNumberType')))
     }
     else {
       ruleForm.pay_amount = (+ruleForm.pay_amount).toString()
@@ -87,29 +87,29 @@ const checkAmount = (rule: any, value: any, callback: any) => {
 
 const rules = reactive({
   out_order_no: [
-    { required: true, message: 'Please input order number', trigger: 'blur' },
+    { required: true, message: $t('orderTool.tip_inputOrderNum'), trigger: 'blur' },
   ],
   pay_chain: [
-    { required: true, message: 'Please input pay chain', trigger: 'blur' },
+    { required: true, message: $t('orderTool.tip_inputPayChain'), trigger: 'blur' },
   ],
   pay_token: [
-    { required: true, message: 'Please input pay token', trigger: 'blur' },
+    { required: true, message: $t('orderTool.tip_inputPayToken'), trigger: 'blur' },
   ],
   pay_amount: [
-    { required: true, message: 'Please input pay amount', trigger: 'blur' },
+    { required: true, message: $t('orderTool.tip_inputAmount'), trigger: 'blur' },
     { validator: checkAmount, trigger: 'blur' }
   ],
   signature: [
-    { required: true, message: 'Please input signature', trigger: 'blur' },
+    { required: true, message: $t('orderTool.tip_inputSign'), trigger: 'blur' },
   ],
   privateKey: [
-    { required: true, message: 'Please input privateKey', trigger: 'blur' },
+    { required: true, message: $t('orderTool.tip_inputPrivateKey'), trigger: 'blur' },
   ],
   pub_key: [
-    { required: true, message: 'Please input publicKey', trigger: 'blur' },
+    { required: true, message: $t('orderTool.tip_inputPubkey'), trigger: 'blur' },
   ],
   notify: [
-    { required: true, message: 'Please input notify url', trigger: 'blur' },
+    { required: true, message: $t('orderTool.tip_inputNotifyUrl'), trigger: 'blur' },
   ],
 })
 

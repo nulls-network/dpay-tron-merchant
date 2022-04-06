@@ -1,14 +1,22 @@
-button:
-  about: 关于
-  back: 返回
-  go: 确定
-  home: 首页
-  toggle_dark: 切换深色模式
-  toggle_langs: 切换语言
-intro:
-  desc: 固执己见的 Vite 项目模板
-  dynamic-route: 动态路由演示
-  hi: 你好，{name}
-  aka: 也叫
-  whats-your-name: 输入你的名字
-not-found: 未找到页面
+orderTool:
+  OrderToolTitle: Cpay 商户订单模拟器(生产环境)
+  chainName: 收款链名
+  createorder: 创建订单
+  generate: 生成
+  notifyUrl: 通知URL
+  orderNumber: 订单号
+  privateKey: 私钥
+  publicKey: 公钥(Hex)
+  receiveToken: 收款Token（TRC20，默认USDT）
+  reset: 重置
+  signMessage: 签名信息
+  tip_inputAmount: 请输入金额
+  tip_inputNotifyUrl: 请输入通知Url
+  tip_inputNumberType: 请输入数值类型
+  tip_inputOrderNum: 请输入订单号
+  tip_inputPayChain: 请输入支付区块链名
+  tip_inputPayToken: 请输入支付Token
+  tip_inputPrivateKey: 请输入私钥
+  tip_inputPubkey: 请输入公钥
+  tip_inputSign: 请输入订单签名
+  transactionAmount: 交易金额(USDT)

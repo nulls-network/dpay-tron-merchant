@@ -1,14 +1,22 @@
-button:
-  about: About
-  back: Back
-  go: GO
-  home: Home
-  toggle_dark: Toggle dark mode
-  toggle_langs: Change languages
-intro:
-  desc: Opinionated Vite Starter Template
-  dynamic-route: Demo of dynamic route
-  hi: Hi, {name}!
-  aka: Also known as
-  whats-your-name: What's your name?
-not-found: Not found
+orderTool:
+  OrderToolTitle: Cpay order tool(production)
+  chainName: Chain Name
+  createorder: Create order
+  generate: Generate
+  notifyUrl: Notify url
+  orderNumber: Order Number
+  privateKey: Private key
+  publicKey: Public key(Hex)
+  receiveToken: Receive token
+  reset: Reset
+  signMessage: Sign message
+  tip_inputAmount: Please input the amount
+  tip_inputNotifyUrl: Please input notify url
+  tip_inputNumberType: Please input number type value
+  tip_inputOrderNum: Please input order number
+  tip_inputPayChain: Please input pay chain
+  tip_inputPayToken: Please input pay token
+  tip_inputPrivateKey: Please input privateKey
+  tip_inputPubkey: Please input publicKey
+  tip_inputSign: Please input signature
+  transactionAmount: Amount(USDT)
