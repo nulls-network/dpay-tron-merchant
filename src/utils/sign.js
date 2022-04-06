@@ -54,3 +54,23 @@ export async function SignOrder(orderInfo = {}, privateKey) {
   const pubkey = await Recover('0x2f4229f14ade324301ec4c6eb6674472106403de6d33675f2cad6f531b723570','0x25b1bfad5408341240c220bd691d21b582395e9ac23a463fde0d1e0a668ef95b64b0fdfea773548126223a2fad7ab147ba2512ceb38d1d86683f75f7fcbffab21c')
   console.log(pubkey,111)
 */
+
+export async function SignCommon(info = {}, privateKey) {
+  try {
+    const bytesData = toBytes(
+      ...info
+    )
+
+    console.log(bytesData)
+
+    const signer = new SigningKey(`0x${privateKey}`)
+
+    const signature = signer.signDigest(bytesData)
+
+    return joinSignature(signature)
+  }
+  catch (error) {
+    console.log(error)
+    throw new Error(error)
+  }
+}

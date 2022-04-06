@@ -10,6 +10,7 @@ import 'virtual:windi-components.css'
 
 
 import 'element-plus/dist/index.css'
+import './styles/overides.scss'
 
 // your custom styles here
 import './styles/main.css'

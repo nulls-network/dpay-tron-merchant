@@ -1,16 +1,48 @@
+bindUserAddress:
+  chain_name: Chain name
+  merchant_address: Merchant address(Hex)
+  notify: Notify url
+  tip_1: Please input merchant wallet address
+  tip_2: Please input user address
+  tip_3: Please input notify url
+  tip_4: Please input chain name
+  user_address: User wallet address(Base58)
+common:
+  bindUserAddress: Bind user recharge address
+  cancel: Cancel
+  confirm: Confirm
+  exchangeFee: Exchange rate
+  orderTool: Generate Order
+  query: Query
+  queryExchangeFee: Query exchange rate
+  queryMerchantBalance: Query merchant balance
+  queryOrderStatu: Query order paymeny status
+  queryWithdrawResult: Query withdraw result
+  response: Response
+  signMessage: Generate sign data
+  tool: Tools
+  withdraw: Withdraw
+dialog:
+  inputContent: Please input sign content split by new line
+  privatekey: Private key
+  result: Result
+  signContent: Sign content
+  signTitle: Generate sign data
 orderTool:
-  OrderToolTitle: Cpay order tool(production)
+  OrderToolTitle: Cpay order tool
   chainName: Chain Name
   createorder: Create order
   generate: Generate
+  merchantAddress: Merchant address(Public key Hex)
   notifyUrl: Notify url
   orderNumber: Order Number
   privateKey: Private key
   publicKey: Public key(Hex)
-  receiveToken: Receive token
+  receiveToken: Receive token(TRC20, USDT)
   reset: Reset
   signMessage: Sign message
   tip_inputAmount: Please input the amount
+  tip_inputMerchantAddress: Please input merchant address
   tip_inputNotifyUrl: Please input notify url
   tip_inputNumberType: Please input number type value
   tip_inputOrderNum: Please input order number
@@ -19,4 +51,35 @@ orderTool:
   tip_inputPrivateKey: Please input privateKey
   tip_inputPubkey: Please input publicKey
   tip_inputSign: Please input signature
-  transactionAmount: Amount(USDT)
+  transactionAmount: Amount(no token precision)
+queryMerchantBalance:
+  chain: Chain Name
+  merchant: Merchant address(Hex)
+  tip_inputChain: Please input chain name
+  tip_inputMerchant: Please input merchant address
+  tip_inputToken: Please input token address
+  token: Token(TRC20, USDT)
+queryOrderStatus:
+  tip_inputId: Please input uuid of order
+  uuid: uuid
+queryWithdrawResult:
+  tip_inputtxhash: Please input txHash
+  txHash: txHash
+withdraw:
+  amount: Amount( with precision)
+  from: From Address(Hex)
+  fromChain: From Chain
+  signature: Signature
+  tip_5: Please input sign data
+  tip_amount_precision: The currency precision of USDT is 6, so 1000000 = 1 USDT
+  tip_inputAmount: Please input amount
+  tip_inputChain: Please input chain name
+  tip_inputFrom: Please input merchant address
+  tip_inputSign: Please input sign data
+  tip_inputTo: Please input address that you want to receive
+  tip_inputToken: Please input token address
+  tip_inputuuid: Please input uuid
+  to: Target Address(Hex)
+  toChain: To Chain
+  token: Token
+  uuid: UUID

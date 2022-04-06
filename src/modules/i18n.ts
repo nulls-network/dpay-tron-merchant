@@ -14,13 +14,13 @@ const messages = Object.fromEntries(
     }),
 )
 
-export const install: UserModule = ({ app }) => {
+export const install: UserModule = ({ app, isClient }) => {
+
   const i18n = createI18n({
-    globalInjection:true,
+    globalInjection: true,
     legacy: false,
-    locale: 'en',
+    locale: 'zh-CN',
     messages,
   })
-
   app.use(i18n)
 }

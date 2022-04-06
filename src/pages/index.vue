@@ -1,58 +1,54 @@
 <template>
-  <div class="container px-4">
-    <h3 class="text-center mb-10 text-lg font-bold">{{$t('orderTool.OrderToolTitle')}}</h3>
-    <el-form
-      ref="ruleFormRef"
-      :model="ruleForm"
-      :rules="rules"
-      label-width="auto"
-      class="demo-ruleForm"
-      :size="formSize"
-    >
-      <el-form-item :label="$t('orderTool.orderNumber')" prop="out_order_no">
-        <div class="flex">
-          <el-input v-model="ruleForm.out_order_no"></el-input>
-          <el-button type="primary" @click="generateOrderNumber">{{$t('orderTool.generate')}}</el-button>
-        </div>
-      </el-form-item>
-      <el-form-item :label="$t('orderTool.transactionAmount')" prop="pay_amount">
-        <el-input v-model="ruleForm.pay_amount"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('orderTool.chainName')" prop="pay_chain">
-        <el-input v-model="ruleForm.pay_chain"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('orderTool.receiveToken')" prop="pay_token">
-        <el-input v-model="ruleForm.pay_token"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('orderTool.privateKey')" prop="privateKey">
-        <el-input v-model="ruleForm.privateKey"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('orderTool.publicKey')" prop="pub_key">
-        <el-input v-model="ruleForm.pub_key"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('orderTool.notifyUrl')" prop="notify">
-        <el-input v-model="ruleForm.notify" placeholder="localhost"></el-input>
-      </el-form-item>
-      <el-form-item :label="$t('orderTool.signMessage')" prop="signature">
-        <div class="flex">
-          <el-input v-model="ruleForm.signature"></el-input>
-          <el-button type="primary" @click="generateSign">{{$t('orderTool.generate')}}</el-button>
-        </div>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm(ruleFormRef)">{{$t('orderTool.createorder')}}</el-button>
-        <el-button @click="resetForm(ruleFormRef)">{{$t('orderTool.reset')}}</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+  <h3 class="text-center mb-10 text-lg font-bold">{{ $t('orderTool.OrderToolTitle') }}</h3>
+  <el-form
+    ref="ruleFormRef"
+    :model="ruleForm"
+    :rules="rules"
+    label-width="auto"
+    class="demo-ruleForm"
+    :size="formSize"
+  >
+    <el-form-item :label="$t('orderTool.orderNumber')" prop="out_order_no">
+      <div class="flex">
+        <el-input v-model="ruleForm.out_order_no"></el-input>
+        <el-button type="primary" @click="generateOrderNumber">{{ $t('orderTool.generate') }}</el-button>
+      </div>
+    </el-form-item>
+    <el-form-item :label="$t('orderTool.transactionAmount')" prop="pay_amount">
+      <el-input v-model="ruleForm.pay_amount"></el-input>
+    </el-form-item>
+    <el-form-item :label="$t('orderTool.chainName')" prop="pay_chain">
+      <el-input v-model="ruleForm.pay_chain"></el-input>
+    </el-form-item>
+    <el-form-item :label="$t('orderTool.receiveToken')" prop="pay_token">
+      <el-input v-model="ruleForm.pay_token"></el-input>
+    </el-form-item>
+    <el-form-item :label="$t('orderTool.merchantAddress')" prop="pub_key">
+      <el-input v-model="ruleForm.pub_key"></el-input>
+    </el-form-item>
+    <el-form-item :label="$t('orderTool.notifyUrl')" prop="notify">
+      <el-input v-model="ruleForm.notify" placeholder="localhost"></el-input>
+    </el-form-item>
+    <el-form-item :label="$t('orderTool.signMessage')" prop="signature">
+      <div class="flex">
+        <el-input v-model="ruleForm.signature"></el-input>
+        <el-button type="primary" @click="generateSign">{{ $t('orderTool.generate') }}</el-button>
+      </div>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm(ruleFormRef)">{{ $t('orderTool.createorder') }}</el-button>
+      <el-button @click="resetForm(ruleFormRef)">{{ $t('orderTool.reset') }}</el-button>
+    </el-form-item>
+  </el-form>
+
+  <sign-dialog v-model:showModal="showModal" :sign-content="signContent" @result="getSignResult" />
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { USDT, ChecksSiteHref } from '@/const/index'
-import { SignOrder, Recover } from '@/utils/sign.js'
-import { SubmitOrder } from '@/logic/placeOrder'
-import { ElMessage } from 'element-plus';
+import { SubmitOrder } from '@/api/index'
+import { ElMessage, ElLoading } from 'element-plus';
 import moment from 'moment'
 
 const $t = useI18n().t;
@@ -65,9 +61,18 @@ const ruleForm = reactive({
   pay_token: USDT,
   pay_amount: '',
   signature: '',
-  privateKey: '',
   notify: '',
   pub_key: '',
+})
+
+const loadingIns = ref()
+watch(loading, (val) => {
+  if (val) {
+    loadingIns.value = ElLoading.service({ fullscreen: true, background: 'rgba(255,255,255,0.3)' })
+  }
+  else {
+    loadingIns.value?.close()
+  }
 })
 
 const checkAmount = (rule: any, value: any, callback: any) => {
@@ -99,18 +104,17 @@ const rules = reactive({
     { required: true, message: $t('orderTool.tip_inputAmount'), trigger: 'blur' },
     { validator: checkAmount, trigger: 'blur' }
   ],
-  signature: [
-    { required: true, message: $t('orderTool.tip_inputSign'), trigger: 'blur' },
-  ],
-  privateKey: [
-    { required: true, message: $t('orderTool.tip_inputPrivateKey'), trigger: 'blur' },
-  ],
-  pub_key: [
-    { required: true, message: $t('orderTool.tip_inputPubkey'), trigger: 'blur' },
-  ],
   notify: [
     { required: true, message: $t('orderTool.tip_inputNotifyUrl'), trigger: 'blur' },
   ],
+  signature: [
+    { required: true, message: $t('orderTool.tip_inputSign'), trigger: 'blur' },
+  ],
+
+  pub_key: [
+    { required: true, message: $t('orderTool.tip_inputMerchantAddress'), trigger: 'blur' },
+  ],
+
 })
 
 const submitForm = async (formEl) => {
@@ -137,7 +141,7 @@ const submitForm = async (formEl) => {
           window.open(`${ChecksSiteHref}/?${params.toString()}`, '_blank')
         }
         else {
-          ElMessage({ message,type:'error' })
+          ElMessage({ message, type: 'error' })
         }
 
       } catch (error) {
@@ -159,10 +163,10 @@ const checkSignFields = function () {
   return new Promise(resolve => {
     let res: Array<any> = []
     let t = 0
-    ruleFormRef.value.validateField(['out_order_no', 'pay_chain', 'pay_token', 'pay_amount', 'notify', 'privateKey'], (vaild: string) => {
+    ruleFormRef.value.validateField(['out_order_no', 'pay_chain', 'pay_token', 'pay_amount', 'notify'], (vaild: string) => {
       t++
       res.push(vaild)
-      if (t === 6) {
+      if (t === 5) {
         resolve(res.every(v => v === ''))
       }
     })
@@ -174,30 +178,26 @@ const generateOrderNumber = () => {
   ruleFormRef.value.validateField(['out_order_no'])
 }
 
-const generateSign = async () => {
-  // console.log(ruleFormRef.value.model)
 
+const showModal = ref(false)
+const signContent = ref('')
+const generateSign = async function () {
   let checks = await checkSignFields()
-  console.log(checks)
-
   if (checks) {
-    let orderInfo = {
-      out_order_no: ruleFormRef.value.model.out_order_no,
-      pay_chain: 'tron',
-      pay_token: ruleFormRef.value.model.pay_token,
-      pay_amount: ruleFormRef.value.model.pay_amount,
-      notify: ruleFormRef.value.model.notify,
-    }
-
-
-    const privateKey = ruleFormRef.value.model.privateKey
-    const signature = await SignOrder(orderInfo, privateKey)
-    console.log(signature)
-    ruleForm.signature = signature
-
-    ruleFormRef.value.validateField(['signature'])
+    signContent.value = [
+      ruleForm.out_order_no,
+      ruleForm.pay_chain,
+      ruleForm.pay_token,
+      ruleForm.pay_amount,
+      ruleForm.notify,
+    ].join('\r')
+    showModal.value = true
   }
+}
 
+const getSignResult = function (value) {
+  ruleForm.signature = value
+  ruleFormRef.value.validateField(['signature'])
 }
 
 // onMounted(async () => {
@@ -208,11 +208,4 @@ const generateSign = async () => {
 </script>
 
 <style lang="scss">
-.container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 600px;
-  transform: translate(-50%, -50%);
-}
 </style>

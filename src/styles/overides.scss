@@ -1,0 +1,12 @@
+.cus-dialog {
+    .el-dialog__body {
+        padding-top: 0;
+    }
+}
+
+.cus-form-item{
+    .el-form-item__label-wrap .el-form-item__label{
+        display: flex;
+        align-items: center;
+    }
+}

@@ -2,28 +2,27 @@
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
 // they will be rendered correctly in the html results with vite-ssg
-useHead({
-  title: 'CPay Merchant Demo',
-  meta: [
-    { name: 'description', content: 'CPay Merchant Demo' },
-  ],
-})
+const title = useTitle()
 const { locale } = useI18n()
-
+const isLoad = ref(false)
 
 onMounted(() => {
   const lang = window.navigator.language.slice(0, 2)
   if (lang == 'zh') {
-    locale.value = 'zh-CN'
+    title.value = "Cpay支付系统测试工具"
   }
-  else{
-    locale.value = 'en'
+  else {
+    title.value = "Cpay system testing tools"
   }
+
+  const l = lang == 'en' ? 'en' : 'zh-CN'
+  locale.value = l
+  isLoad.value = true
 })
 
 
 </script>
 
 <template>
-  <router-view />
+  <router-view v-show="isLoad" />
 </template>

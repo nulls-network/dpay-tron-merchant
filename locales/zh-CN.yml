@@ -1,16 +1,48 @@
+bindUserAddress:
+  chain_name: 链名
+  merchant_address: 商户钱包地址(Hex)
+  notify: 充值通知URL
+  tip_1: 请输入商户钱包地址
+  tip_2: 请输入用户钱包地址
+  tip_3: 请输入充值通知回调URL
+  tip_4: 请输入链名
+  user_address: 用户钱包地址(Base58)
+common:
+  bindUserAddress: 绑定用户充值地址
+  cancel: 取消
+  confirm: 确定
+  exchangeFee: 汇率
+  orderTool: 订单生成工具
+  query: 查询
+  queryExchangeFee: 查询代币汇率
+  queryMerchantBalance: 查询商户余额
+  queryOrderStatu: 查询订单支付状态
+  queryWithdrawResult: 查询提现结果
+  response: 响应结果
+  signMessage: 生成签名
+  tool: 工具
+  withdraw: 商户提现
+dialog:
+  inputContent: 请输入签名内容，以换行分隔
+  privatekey: 私钥
+  result: 结果
+  signContent: 签名内容
+  signTitle: 生成签名数据
 orderTool:
-  OrderToolTitle: Cpay 商户订单模拟器(生产环境)
+  OrderToolTitle: Cpay 商户订单模拟器
   chainName: 收款链名
   createorder: 创建订单
   generate: 生成
+  merchantAddress: 商户钱包地址(公钥Hex)
   notifyUrl: 通知URL
   orderNumber: 订单号
   privateKey: 私钥
   publicKey: 公钥(Hex)
-  receiveToken: 收款Token（TRC20，默认USDT）
+  receiveToken: 收款Token（TRC20，USDT）
   reset: 重置
   signMessage: 签名信息
   tip_inputAmount: 请输入金额
+  tip_inputMerchantAddress: 请输入商户钱包地址
   tip_inputNotifyUrl: 请输入通知Url
   tip_inputNumberType: 请输入数值类型
   tip_inputOrderNum: 请输入订单号
@@ -19,4 +51,35 @@ orderTool:
   tip_inputPrivateKey: 请输入私钥
   tip_inputPubkey: 请输入公钥
   tip_inputSign: 请输入订单签名
-  transactionAmount: 交易金额(USDT)
+  transactionAmount: 交易金额（不带币种精度）
+queryMerchantBalance:
+  chain: 链名
+  merchant: 商户钱包地址(Hex)
+  tip_inputChain: ' 请输入链名'
+  tip_inputMerchant: 请输入商户地址
+  tip_inputToken: 请输入token合约
+  token: Token(TRC20, USDT)
+queryOrderStatus:
+  tip_inputId: 请输入订单uuid
+  uuid: uuid
+queryWithdrawResult:
+  tip_inputtxhash: 请输入txHash
+  txHash: txHash
+withdraw:
+  amount: 提现金额（带币种精度）
+  from: 商户钱包地址(Hex)
+  fromChain: From Chain
+  signature: 签名信息
+  tip_5: 请输入签名信息
+  tip_amount_precision: USDT的币种精度为6，所以 1000000 = 1 USDT
+  tip_inputAmount: 请输入提现金额
+  tip_inputChain: 请输入链名
+  tip_inputFrom: 请输入要提现的商户地址
+  tip_inputSign: 请输入签名
+  tip_inputTo: 请输入你想要接收的地址
+  tip_inputToken: 请输入代币合约地址
+  tip_inputuuid: 请输入uuid
+  to: 目的地址(Hex)
+  toChain: To Chain
+  token: Token
+  uuid: UUID

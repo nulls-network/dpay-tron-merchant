@@ -1,0 +1,89 @@
+<template>
+    <h3 class="text-center mb-10 text-lg font-bold">{{ $t('common.queryOrderStatu') }}</h3>
+    <el-form
+        ref="ruleFormRef"
+        :model="ruleForm"
+        :rules="rules"
+        label-width="auto"
+        class="demo-ruleForm"
+        :size="formSize"
+    >
+        <el-form-item :label="$t('queryOrderStatus.uuid')" prop="uuid">
+            <el-input v-model="ruleForm.uuid"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+            <el-button type="primary" @click="submitForm(ruleFormRef)">{{ $t('common.query') }}</el-button>
+            <el-button @click="resetForm(ruleFormRef)">{{ $t('orderTool.reset') }}</el-button>
+        </el-form-item>
+    </el-form>
+    <Json :data="response" />
+</template>
+
+<script lang="ts" setup>
+import { reactive, ref } from 'vue'
+import { QueryOrderStatus } from '@/api/index'
+import { ElMessage, ElLoading } from 'element-plus';
+
+
+const $t = useI18n().t;
+const loading = ref(false)
+const formSize = ref('default')
+const ruleFormRef = ref()
+const ruleForm = reactive({
+    uuid: ``,
+})
+
+const response = ref('')
+const loadingIns = ref()
+watch(loading, (val) => {
+    if (val) {
+        loadingIns.value = ElLoading.service({ fullscreen: true, background: 'rgba(255,255,255,0.3)' })
+    }
+    else {
+        loadingIns.value?.close()
+    }
+})
+
+const rules = reactive({
+    uuid: [
+        { required: true, message: $t('queryOrderStatus.tip_inputId'), trigger: 'blur' },
+    ],
+})
+
+const submitForm = async (formEl) => {
+    if (!formEl) return
+    if (loading.value) return
+    await formEl.validate(async (valid, fields) => {
+        if (valid) {
+            try {
+                loading.value = true
+
+                const res = await QueryOrderStatus(ruleForm.uuid)
+                loading.value = false
+                response.value = res
+                if (res.code == 0) {
+                }
+                else {
+                    ElMessage({ message: res.message, type: 'error' })
+                }
+
+            } catch (error) {
+                loading.value = false
+            }
+
+        } else {
+            console.log('error submit!', fields)
+        }
+    })
+}
+
+const resetForm = (formEl) => {
+    if (!formEl) return
+    formEl.resetFields()
+}
+
+</script>
+
+<style lang="scss">
+</style>
