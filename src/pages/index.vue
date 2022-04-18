@@ -41,7 +41,7 @@
     </el-form-item>
   </el-form>
 
-  <sign-dialog v-model:showModal="showModal" :sign-content="signContent" @result="getSignResult" />
+  <sign-dialog v-model:showModal="showModal" v-model:sign-content="signContent" @result="getSignResult" />
 </template>
 
 <script lang="ts" setup>

@@ -8,7 +8,7 @@
     >
         <h3 class="text-lg my-2">{{ $t('dialog.signContent') }}:</h3>
         <el-input
-            v-model="signContent"
+            v-model="content"
             :rows="6"
             type="textarea"
             :placeholder="$t('dialog.inputContent')"
@@ -32,6 +32,17 @@ import { SignCommon } from '@/utils/sign'
 const props = defineProps(['showModal', 'signContent', 'notAutoClose'])
 const emits = defineEmits(['update:showModal', 'result'])
 
+const content = ref('')
+
+
+watch(()=>props.showModal,(value)=>{
+    if(value){
+        console.log(props.signContent)
+        content.value = props.signContent;
+    }
+})
+
+
 const doClose = function () {
     result.value = ""
     privateKey.value = ''
@@ -43,7 +54,7 @@ const privateKey = ref('')
 const result = ref('')
 const doSign = async function () {
     try {
-        const info = props.signContent.split(/[\r\n]/)
+        const info = content.value.split(/[\r\n]/)
         console.log(info)
         result.value = await SignCommon(info, privateKey.value)
         emits('result', result.value)
