@@ -3,10 +3,10 @@ bindUserAddress:
   merchant_address: Merchant address(Hex)
   notify: Notify url
   tip_1: Please input merchant wallet address
-  tip_2: Please input user address
+  tip_2: Please input user id
   tip_3: Please input notify url
   tip_4: Please input chain name
-  user_address: User wallet address(Base58)
+  userId: User ID
 common:
   bindUserAddress: Bind user recharge address
   cancel: Cancel

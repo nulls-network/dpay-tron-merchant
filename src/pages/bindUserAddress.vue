@@ -12,8 +12,8 @@
             <el-input v-model="ruleForm.merchant_address"></el-input>
         </el-form-item>
 
-        <el-form-item :label="$t('bindUserAddress.user_address')" prop="user_address">
-            <el-input v-model="ruleForm.user_address"></el-input>
+        <el-form-item :label="$t('bindUserAddress.userId')" prop="user_id">
+            <el-input v-model="ruleForm.user_id"></el-input>
         </el-form-item>
 
         <el-form-item :label="$t('bindUserAddress.notify')" prop="notify">
@@ -55,7 +55,7 @@ const formSize = ref('default')
 const ruleFormRef = ref()
 const ruleForm = reactive({
     merchant_address: ``,
-    user_address: ``,
+    user_id: ``,
     notify: ``,
     chain_name: `tron`,
     signature: ``,
@@ -76,7 +76,7 @@ const rules = reactive({
     merchant_address: [
         { required: true, message: $t('bindUserAddress.tip_1'), trigger: 'blur' },
     ],
-    user_address: [
+    user_id: [
         { required: true, message: $t('bindUserAddress.tip_2'), trigger: 'blur' },
     ],
     notify: [
@@ -97,7 +97,7 @@ const generateSign = async function () {
     if (checks) {
         signContent.value = [
             ruleForm.merchant_address,
-            ruleForm.user_address,
+            ruleForm.user_id,
             ruleForm.notify,
             ruleForm.chain_name,
         ].join('\r')
@@ -114,7 +114,7 @@ const checkSignFields = function () {
     return new Promise(resolve => {
         let res: Array<any> = []
         let t = 0
-        ruleFormRef.value.validateField(['merchant_address', 'user_address', 'notify', 'chain_name'], (vaild: string) => {
+        ruleFormRef.value.validateField(['merchant_address', 'user_id', 'notify', 'chain_name'], (vaild: string) => {
             t++
             res.push(vaild)
             if (t === 4) {

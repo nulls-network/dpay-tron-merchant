@@ -3,10 +3,10 @@ bindUserAddress:
   merchant_address: 商户钱包地址(Hex)
   notify: 充值通知URL
   tip_1: 请输入商户钱包地址
-  tip_2: 请输入用户钱包地址
+  tip_2: 请输入用户ID
   tip_3: 请输入充值通知回调URL
   tip_4: 请输入链名
-  user_address: 用户钱包地址(Base58)
+  userId: 用户ID
 common:
   bindUserAddress: 绑定用户充值地址
   cancel: 取消
