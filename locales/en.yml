@@ -13,6 +13,7 @@ common:
   confirm: Confirm
   exchangeFee: Exchange rate
   orderTool: Generate Order
+  orderTool1: Generate Order New
   query: Query
   queryExchangeFee: Query exchange rate
   queryMerchantBalance: Query merchant balance
@@ -22,6 +23,7 @@ common:
   signMessage: Generate sign data
   tool: Tools
   withdraw: Withdraw
+  withdrawNew: withdraw(New)
 dialog:
   inputContent: Please input sign content split by new line
   privatekey: Private key
@@ -79,7 +81,7 @@ withdraw:
   tip_inputTo: Please input address that you want to receive
   tip_inputToken: Please input token address
   tip_inputuuid: Please input uuid
-  to: Target Address(Hex)
+  to: Target Address
   toChain: To Chain
   token: Token
   uuid: UUID

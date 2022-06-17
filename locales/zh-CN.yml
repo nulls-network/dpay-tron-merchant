@@ -13,6 +13,7 @@ common:
   confirm: 确定
   exchangeFee: 汇率
   orderTool: 订单生成工具
+  orderTool1: 订单生成工具(新版)
   query: 查询
   queryExchangeFee: 查询代币汇率
   queryMerchantBalance: 查询商户余额
@@ -22,6 +23,7 @@ common:
   signMessage: 生成签名
   tool: 工具
   withdraw: 商户提现
+  withdrawNew: 商户提现(新版)
 dialog:
   inputContent: 请输入签名内容，以换行分隔
   privatekey: 私钥
@@ -79,7 +81,7 @@ withdraw:
   tip_inputTo: 请输入你想要接收的地址
   tip_inputToken: 请输入代币合约地址
   tip_inputuuid: 请输入uuid
-  to: 目的地址(Hex)
+  to: 目的地址
   toChain: To Chain
   token: Token
   uuid: UUID

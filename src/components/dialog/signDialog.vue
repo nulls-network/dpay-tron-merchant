@@ -27,9 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import { SignCommon } from '@/utils/sign'
+import { SignCommon,SignMessageCommon } from '@/utils/sign'
 
-const props = defineProps(['showModal', 'signContent', 'notAutoClose'])
+const props = defineProps(['showModal', 'signContent', 'notAutoClose', 'signMessage'])
 const emits = defineEmits(['update:showModal', 'result'])
 
 const content = ref('')
@@ -56,7 +56,11 @@ const doSign = async function () {
     try {
         const info = content.value.split(/[\r\n]/)
         console.log(info)
-        result.value = await SignCommon(info, privateKey.value)
+        if(props.signMessage) {
+            result.value = await SignMessageCommon(info, privateKey.value)
+        }else{
+            result.value = await SignCommon(info, privateKey.value)
+        }
         emits('result', result.value)
 
         if (!props.notAutoClose) {

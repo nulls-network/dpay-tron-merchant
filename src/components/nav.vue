@@ -16,7 +16,9 @@
             </span>
         </el-menu-item>
         <el-menu-item index="/">{{ $t('common.orderTool') }}</el-menu-item>
+        <!-- <el-menu-item index="/indexNew">{{ $t('common.orderTool1') }}</el-menu-item> -->
         <el-menu-item index="/withdraw">{{ $t('common.withdraw') }}</el-menu-item>
+        <el-menu-item index="/withdrawNew">{{ $t('common.withdrawNew') }}</el-menu-item>
         <el-menu-item index="/bindUserAddress">{{ $t('common.bindUserAddress') }}</el-menu-item>
         <el-sub-menu index="/query">
             <template #title>{{$t('common.query')}}</template>

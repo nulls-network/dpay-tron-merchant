@@ -74,3 +74,21 @@ export async function SignCommon(info = {}, privateKey) {
     throw new Error(error)
   }
 }
+
+export async function SignMessageCommon(info = {}, privateKey) {
+  try {
+    const bytesData = toBytes(
+      ...info
+    )
+
+    const wallet = new ethers.Wallet(privateKey)
+
+    const signature = await wallet.signMessage(bytesData);
+
+    return signature
+  }
+  catch (error) {
+    console.log(error)
+    throw new Error(error)
+  }
+}

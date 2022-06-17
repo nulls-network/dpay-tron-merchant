@@ -13,6 +13,14 @@ export const SubmitOrder = async function(data) {
   }).then(res => res.data)
 }
 
+export const SubmitSignMessageOrder = async function(data) {
+  return axiosIns({
+    url: '/api/v2/order',
+    method: 'post',
+    data,
+  }).then(res => res.data)
+}
+
 export const QueryOrderStatus = async function(data) {
   return axiosIns({
     url: `/api/v1/order/${data}`,
@@ -32,6 +40,14 @@ export const queryMerchantBalance = async function(data) {
 export const doWithdraw = async function(data) {
   return axiosIns({
     url: `/api/v1/merchant/doWithdraw`,
+    method: 'post',
+    data,
+  }).then(res => res.data)
+}
+
+export const doWithdrawNew = async function(data) {
+  return axiosIns({
+    url: `/api/v1/merchant/withdrawAndNotify`,
     method: 'post',
     data,
   }).then(res => res.data)
