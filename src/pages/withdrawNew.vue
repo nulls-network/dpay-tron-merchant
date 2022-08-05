@@ -60,6 +60,14 @@
             <el-input v-model="ruleForm.from"></el-input>
         </el-form-item>
 
+        <el-form-item label="isPayment" prop="isPayment">
+            <el-switch
+                v-model="ruleForm.isPayment"
+                active-color="#13ce66"
+                inactive-color="#ff4949">
+            </el-switch>
+        </el-form-item>
+
         <el-form-item>
             <el-button type="primary" @click="submitForm(ruleFormRef)">{{ $t('common.confirm') }}</el-button>
             <el-button @click="resetForm(ruleFormRef)">{{ $t('orderTool.reset') }}</el-button>
@@ -92,7 +100,8 @@ const ruleForm = reactive({
     uuid: ``,
     signature: ``,
     from: ``,
-    notify_url: ``
+    notify_url: ``,
+    isPayment: undefined
 })
 
 const response = ref('')

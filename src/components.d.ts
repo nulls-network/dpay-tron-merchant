@@ -14,6 +14,7 @@ declare module 'vue' {
     ElMenu: typeof import('element-plus/lib')['ElMenu']
     ElMenuItem: typeof import('element-plus/lib')['ElMenuItem']
     ElSubMenu: typeof import('element-plus/lib')['ElSubMenu']
+    ElSwitch: typeof import('element-plus/lib')['ElSwitch']
     ElTooltip: typeof import('element-plus/lib')['ElTooltip']
     IconMdiHelpCircleOutline: typeof import('~icons/mdi/help-circle-outline')['default']
     Json: typeof import('./components/json.vue')['default']
